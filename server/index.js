@@ -4,7 +4,9 @@ const db = require("./db");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://react-frontend-us55.onrender.com"
+}));
 app.use(express.json());
 
 /*Create user*/
