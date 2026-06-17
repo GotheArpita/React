@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./index.css";
 import Home from "./Home";
 import App from "./App";
-import Dashboard from "./dashboard";  
+import Dashboard from "./Dashboard";  
 
 function AdminRoute({ children }) {
   const role = localStorage.getItem("role");
