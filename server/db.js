@@ -24,7 +24,7 @@ const db = new sqlite3.Database("./users.db", (err) => {
                      VALUES (?, ?, ?, ?)`,
                     [
                         "admin@gmail.com",
-                        "admin123",
+                        "12345",
                         "Admin",
                         "admin"
                     ],
