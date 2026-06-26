@@ -38,6 +38,50 @@ const db = new sqlite3.Database("./users.db", (err) => {
                 );
             }
         });
+        db.run(`
+            CREATE TABLE IF NOT EXISTS doctor (
+                DOC_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                DOC_NAME TEXT NOT NULL,
+                DESIGNATION TEXT NOT NULL,
+                DESIGNATION_ID INTEGER NOT NULL,
+                DELETE_FLAG INTEGER DEFAULT 1
+            )
+        `, (err) => {
+            if (err) {
+                console.error("Error creating doctor table:", err.message);
+            } else {
+                console.log("Doctor table ready");
+
+                db.run(
+                    `INSERT OR IGNORE INTO doctor
+                    (DOC_ID, DOC_NAME, DESIGNATION, DESIGNATION_ID, DELETE_FLAG)
+                    VALUES (?, ?, ?, ?, ?)`,
+                    [1, "Dr. Amit Sharma", "Physician", 101, 1]
+                );
+
+                db.run(
+                    `INSERT OR IGNORE INTO doctor
+                    (DOC_ID, DOC_NAME, DESIGNATION, DESIGNATION_ID, DELETE_FLAG)
+                    VALUES (?, ?, ?, ?, ?)`,
+                    [1, "Dr. Amit Sharma", "Physician", 101, 1]
+                );
+
+                db.run(
+                    `INSERT OR IGNORE INTO doctor
+                    (DOC_ID, DOC_NAME, DESIGNATION, DESIGNATION_ID, DELETE_FLAG)
+                    VALUES (?, ?, ?, ?, ?)`,
+                    [2, "Dr. Priya Patil", "Cardiologist", 102, 1]
+                );
+
+                db.run(
+                    `INSERT OR IGNORE INTO doctor
+                    (DOC_ID, DOC_NAME, DESIGNATION, DESIGNATION_ID, DELETE_FLAG)
+                    VALUES (?, ?, ?, ?, ?)`,
+                    [3, "Dr. Rahul Mehta", "Neurologist", 103, 1]
+                );
+
+            }
+        });
     }
 });
 

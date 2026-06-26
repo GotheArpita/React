@@ -21,7 +21,8 @@ function Side() {
                             DASHBOARD
                         </li>
                     )}
-                    <li>HOME</li>
+                    <li onClick={() => navigate("/home")}>HOME</li>
+                    <li onClick={() => navigate("/doctor")}>DOCTORS-LIST</li>
                     <li>PROFILE</li>
                     <li>SETTINGS</li>
                 </ul>

@@ -6,6 +6,7 @@ import "./index.css";
 import Home from "./Home";
 import App from "./App";
 import Dashboard from "./Dashboard";  
+import Doctor from "./Doctor";
 
 function AdminRoute({ children }) {
   const role = localStorage.getItem("role");
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/doctor" element={<Doctor />} />
         <Route 
           path="/dashboard"
           element={

@@ -67,6 +67,90 @@ app.post("/login", (req, res) => {
     }
   );
 });
+
+app.get("/doctors", (req, res) => {
+  db.all(
+    "SELECT * FROM doctor WHERE DELETE_FLAG = 1",
+    [],
+    (err, rows) => { 
+ 
+      if (err) {
+        console.error("Error fetching doctors:", err.message);
+        return res.status(500).json({
+          success: false,
+          message: "Error fetching doctors: " + err.message
+        });
+      }
+
+      res.json({
+        success: true,
+        doctors: rows
+      });
+    }
+  );
+});
+
+app.post("/doctors", (req, res) => {
+  const { DOC_NAME, DESIGNATION, DESIGNATION_ID } = req.body;
+
+  db.run(
+    "INSERT INTO doctor (DOC_NAME, DESIGNATION, DESIGNATION_ID) VALUES (?, ?, ?)",
+    [DOC_NAME, DESIGNATION, DESIGNATION_ID],
+
+    function(err) {
+      if (err) {
+        console.error("Error inserting doctor:", err.message);
+
+        return res.status(400).json({
+          success: false,
+          message: "Error adding doctor: " + err.message
+        });
+      }
+
+      res.json({
+        success: true,
+        message: "Doctor added successfully!"
+      });
+    }
+  );
+});
+
+// Soft Delete Doctor
+app.put("/doctors/delete/:id", (req, res) => {
+
+    const { id } = req.params;
+
+    db.run(
+        `UPDATE doctor
+         SET DELETE_FLAG = 0
+         WHERE DOC_ID = ?`,
+        [id],
+        function(err) {
+
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: err.message
+                });
+            }
+
+            if (this.changes === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Doctor not found"
+                });
+            }
+
+            res.json({
+                success: true,
+                message: "Doctor deleted successfully"
+            });
+
+        }
+    );
+
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
